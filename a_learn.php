@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+      <link rel="stylesheet" href="a_css/a_contact.css">
+</head>
+<body>
+      <nav>
+            <div class="row text-center">
+                <img src="img/logo.png" alt="" class="rounded mx-auto d-block" width="75%">
+            </div>
+            <br><br>
+            <div class="user">
+            <img src="img/user.svg" alt="">
+                <p>Hi, Sarthak</p>
+                <button type="submit" onclick="log_out()">Log Out</button>
+            </div>
+            <script>
+              function log_out()
+              {
+                location.href = "index.php";
+              }
+            </script>
+            <br>
+            <!-- Menu Area  -->
+            <ul class="menu">
+                  <li><a href="a_login.php">HOME</a></li>
+                  <li><a href="a_dict.php">DICTIONARY</a></li>
+                  <li><a href="a_thesaurus.php">THESAURUS</a></li>
+                  <li><a href="a_learn.php">LEARN GRAMMAR</a></li>
+                  <li><a href="a_test.php">TEST YOUR GRAMMAR</a></li>
+                  <li><a href="a_upcoming.php">UPCOMING EVENTS</a></li>
+                  <li><a href="a_profile.php">MY PROFILE</a></li>
+                  <li><a href="a_about.php">ABOUT</a></li>
+                  <li><a href="a_authors.php">AUTHORS</a></li>
+            </ul>
+            <br><br><br>
+            
+            <!--  -->
+
+                <a href="a_contact.php" id="social_head">CONTACT US</a> 
+                <hr id="social_head_udr"> 
+                <ul class="social">
+                <li><a href="tel:+919809102900"><img src="img/phone.png" alt="" class="rounded-circle" width="100%"></a></li>
+                <li><a href="mailto: handsonenglish2020@gmail.com"><img src="img/message.png" alt="" class="rounded-circle" width="100%"></a></li>
+                <li><a href="https://www.instagram.com/"><img src="img/insta.png" alt="" class="rounded-circle" width="100%"></a></li>
+                <li><a href="https://www.facebook.com/"><img src="img/facebook.png" alt="" class="rounded-circle" width="100%"></a></li>
+                </ul>
+      </nav>
+
+
+
+      <div class="container">
+      <br>
+          <a href="#" id="contact_head">LEARN GRAMMAR</a>
+          <hr id="contact_head_udr"> 
+          <br><br>
+      <?php
+                $db_host='127.0.0.1';
+                $db_user='root';
+                $db_pass='';
+                $db_name='english';
+
+                $conn=mysqli_connect($db_host,$db_user,$db_pass,$db_name);
+                if(!$conn )
+                {
+                    die('Failed to connect mysql database'.mysqli_connect_error());
+                }
+
+                // echo "YOYO";
+
+                $sql='SELECT * from engvideos ORDER BY views DESC';
+                $query = mysqli_query($conn,$sql);
+
+                if(!$query)
+                {
+                    die('error found'.mysqli_error($conn));
+                }
+                $c=0;
+                while($row=mysqli_fetch_array($query))
+                { ?>
+      <div class="card mb-3" style="box-shadow: 0px 1px 5px black inset;">
+        <div class="row g-0">
+            <form class="col-4 m-0 d-flex align-items-center justify-content-center" action="play_video.php" method="GET">
+                <button type="submit" name="submit" value="<?php echo $row['name'];?>" style="width:90%;border:none;outline:none;background-color:transparent;"><video class="rounded" src="<?php echo $row['video'];?>" width="100%"></video><h5 class="col-6" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -40%);"><?php echo $row['name'];?></h5></button>
+            </form>
+            <div class="col-8">
+            <div class="card-body p-3">
+                <div class="col-3 ml-auto">
+                  <?php
+                   $count = $row['rating'];
+                   echo '<small style="font-size:0.5em">'.$row['rating'].' / 5.0 stars&emsp;</small>';
+                       $countleft = 5-$count;
+                       while($count>=1)
+                       {
+                           echo'<img src="img/full_star.jpg" style="width: 10%; height: 100%" alt="">';
+                           $count--;
+                       }
+           
+                       if($count>0)
+                       {
+                           echo'<img src="img/half_star.jpg" style="width: 10%; height: 100%" alt="">';
+                       }
+           
+                       while($countleft>=1)
+                       {
+                           echo'<img src="img/empty_star.jpg" style="width: 10%; height: 100%" alt="">';
+                           $countleft--;
+                       }
+                  ?>
+                </div>
+                <h5 class="card-title mb-1"><?php echo $row['name'];?></h5>
+                <p class="card-text font-italic" style="font-size: 0.8em;">Instructor - <?php echo $row['instructor'];?></p>
+                <p class="card-text"><?php echo substr($row['description'],0,100); echo '...'?></p>
+                <p class="card-text"><small class="text-muted"><?php echo $row['length'];?> min</small></p>
+                <img src="img/views.png" alt="" width="2%"><span style="font-size: 0.8em; color: #00000075;">&emsp;<?php echo $row['views'];?> views</span>
+            </div>
+            </div>
+        </div>
+        </div>
+                <?php }?>
+      </div>
+      
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>

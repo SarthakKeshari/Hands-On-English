@@ -1,0 +1,6 @@
+﻿event_id,Name,event_date,deadline,age_group,event_duration,image
+5001,Improve Vocab,2020-11-20,2020-11-02,15 - 20 years,24 hours,img/event_1.jpeg
+5002,POS,2020-12-06,2020-11-10,10 - 16 years,3 hours,img/event_2.jpeg
+5003,Punctuation Test,2021-01-21,2020-12-15,20 - 24 years,6 hours,img/event_3.jpeg
+5004,Cheat Sheets,2021-02-24,2021-01-10,6 - 8 years,2 hours,img/event_4.jpeg
+5005,Vocab Twister,2021-02-01,2020-12-25,20 - 30 years,1 week,img/event_5.jpeg
